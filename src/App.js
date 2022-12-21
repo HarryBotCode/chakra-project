@@ -8,8 +8,8 @@ import Cart from "./components/Cart";
 function App() {
   return (
     <div className='App'>
-       <Header />
-      <Home /> 
+      <Header /> 
+       <Home /> 
    {/* <BrowserRouter>
           <Header />
        <div>

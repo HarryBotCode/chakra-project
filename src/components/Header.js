@@ -1,5 +1,7 @@
 import React from 'react'
-
+import { CloseButton } from '@chakra-ui/react'
+import { BsFillCartFill } from "react-icons/bs";
+import {CartState} from '../context/Context';
 import {
     Image, 
     Flex, 
@@ -25,6 +27,8 @@ import {
 
 } from '@chakra-ui/react'
 
+
+
 import {
     SearchIcon
 } from '@chakra-ui/icons';
@@ -36,15 +40,11 @@ const Header = () => {
     
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    
+    const {state : {cart}} = CartState();
     
 return (
        
-// import {Link} from 'react-scroll'
-// import data from './header.data';
 
-
-//const CTA = "Get Started"
 <>
 <chakra.header id="header">
       <Flex
@@ -69,7 +69,7 @@ return (
                 <Input type='search' bgColor='white' placeholder='Search'/>
                 <IconButton
                 colorScheme='blue'
-                aria-label='Search database'
+                type='text'
                 icon={<SearchIcon />}
                 />
                 </HStack>
@@ -78,17 +78,24 @@ return (
           
         </HStack>
 
-		{/* // Call to action items */}
+		{/* view car */}
         <HStack>
-        <Button colorScheme='blue' onClick={onOpen}>View Cart</Button>
+        <Button rightIcon={<BsFillCartFill/>} colorScheme='blue' onClick={onOpen}>{cart.length}</Button>
     <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader borderBottomWidth='1px'>YOUR CART</DrawerHeader>
+        
+        <DrawerHeader borderBottomWidth='1px' >
+        <HStack spacing='150px'>
+          <Box>YOUR CART</Box>
+          <Box><CloseButton onClick={onClose}/></Box>
+          </HStack>
+        </DrawerHeader>
+        
         <DrawerBody>
-          <p>Item 1...</p>
-          <p>Item 2...</p>
-          <p>Item 3...</p>
+          <p>Your Cart is empty</p>
+          <p></p>
+          <p></p>
         </DrawerBody>
       </DrawerContent>
     </Drawer>

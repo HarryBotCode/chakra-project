@@ -8,11 +8,11 @@ import Context from './context/Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-   {/* // <React.StrictMode> */}
+   
     <Context>
       <App />
     </Context> 
-    {/* //</React.StrictMode> */}
+    
   </ChakraProvider>
 
 );
