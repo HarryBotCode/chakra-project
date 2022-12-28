@@ -62,10 +62,10 @@ const Cart = ({ cart, onAdd, onRemove, products, product }) => {
             </HStack>
 
                 <HStack justify-content='space-between'>
-                  <Image src={data.imgUrl} boxSize='50px' alt='image' />
-                  <Text>{data.name}</Text>
+                  <Image src={item.imgUrl} boxSize='50px' alt='image' />
+                  <Text>{item.name}</Text>
                   <Button colorScheme='teal' variant='ghost' >-</Button>
-                  <Text>{data.price}</Text>
+                  <Text>{item.price}</Text>
                   <Button colorScheme='teal' variant='ghost'>+</Button>
                   <Text>450</Text>
                 </HStack>

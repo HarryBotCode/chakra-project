@@ -35,6 +35,7 @@ const SingleProduct = ({data, ...rest}, {handleClick}) => {
       <Button 
         variant='solid' colorScheme='blue'
         onClick={() => handleClick(data)}
+        
       
         >
           

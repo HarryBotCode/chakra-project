@@ -48,7 +48,7 @@ const Home = () => {
   const [cart, setCart] = useState([])
   
 
-  const handleClick = (product) => {
+   function handleClick (product)  {
     // Update cart item quantity if already in cart
     const exist = cart.find((x) => x.id === product.id);
     if (exist) {
@@ -113,7 +113,7 @@ const Home = () => {
               setCart={setCart}
               onRemove={onRemove}
               products={products}
-              item={cart.find((x) => x.id === product.id)} 
+               
               
             />
           
