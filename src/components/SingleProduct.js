@@ -1,11 +1,10 @@
 import React from 'react'
 import { Card,Flex, Box, CardHeader, CardBody, CardFooter, Image, Stack, Text, Divider, ButtonGroup, Button, Heading, Wrap , HStack} from '@chakra-ui/react'
 import './styles.css';
+import { useParams } from "react-router-dom";
 
-
-const SingleProduct = ({data, ...rest}, {addToCart}) => {
-
- 
+const SingleProduct = ({data, ...rest}, {handleClick}) => {
+  
 
   return (
     <>
@@ -35,7 +34,9 @@ const SingleProduct = ({data, ...rest}, {addToCart}) => {
     <ButtonGroup spacing='2'>
       <Button 
         variant='solid' colorScheme='blue'
-        onClick={() => addToCart()}>
+        onClick={() => handleClick(data)}
+      
+        >
           
         Add to cart
       </Button>

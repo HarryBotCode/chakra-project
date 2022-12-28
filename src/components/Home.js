@@ -5,8 +5,7 @@ import SingleProduct from './SingleProduct';
 import products from '../context/products.json';
 
 import React from 'react'
-import { CloseButton } from '@chakra-ui/react'
-import { BsFillCartFill } from "react-icons/bs";
+
 import Cart from './Cart';
 import {
   Text,
@@ -42,16 +41,35 @@ import {
 
 const Home = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+ 
 
   const [SearchItem, setSearchItem] = useState("");
+ 
+  const [cart, setCart] = useState([])
+  
 
-  const [CartItems, setCartItems] = useState([])
-
-  const addToCart = (data) => {
-    setCartItems([...CartItems, data]);
-
-  }
+  const handleClick = (product) => {
+    // Update cart item quantity if already in cart
+    const exist = cart.find((x) => x.id === product.id);
+    if (exist) {
+      const newCart = cart.map((x) => 
+      
+      x.id === product.id ? { ...exist, qty: exist.qty + 1} : x
+      );
+      setCart(newCart);
+    } else{
+      const newCart = [...cart, { ...product, qty:1}];
+      setCart(newCart);
+    }
+  };
+  const onRemove = (product) => {
+    const exist = cart.findIndex((x) => x.id === product.id);
+    if (exist.qty === 1) {
+      const newCart = cart.filter((x) => x.id !== product.id);
+      setCart(newCart);
+    }
+  };
+   
 
 
   return (
@@ -89,62 +107,16 @@ const Home = () => {
           </HStack>
 
           {/* view cart */}
-
-          <HStack>
-            <Button rightIcon={<BsFillCartFill />} colorScheme='blue' onClick={onOpen}>4</Button>
-            <Drawer placement='right' onClose={onClose} isOpen={isOpen}>
-              <DrawerOverlay />
-              <DrawerContent>
-
-                <DrawerHeader borderBottomWidth='1px' >
-                  <HStack spacing='150px'>
-                    <Box>SHOPPING CART</Box>
-                    <Box><CloseButton onClick={onClose} /></Box>
-                  </HStack>
-                </DrawerHeader>
-
-                <DrawerBody>
-
-                  <VStack >
-                    <HStack justifyContent='space-between' justify-content='space-around' mt='5' mb='5'>
-                      <Heading as='h6' size='xs'>Items</Heading>
-                      <Heading as='h6' size='xs'>Price</Heading>
-                      <Heading as='h6' size='xs' >Qty</Heading>
-                      <Heading as='h6' size='xs'>SubTotal</Heading>
-                    </HStack>
-                    {CartItems.length == 0 && <div>cart is empty</div>}
-                    {products.map((item) => (
-                      <div key={item.id} item={item}>
-
-
-                        <HStack justify-content='space-between'>
-                          <Image src={item.imgUrl} boxSize='50px' alt='image' />
-                          <Text>{item.name}</Text>
-                          <Button colorScheme='teal' variant='ghost'>-</Button>
-                          <Text>{item.price}</Text>
-                          <Button colorScheme='teal' variant='ghost'>+</Button>
-                          <Text>450</Text>
-                        </HStack>
-
-                      </div>
-                    ))}
-                    <HStack justifyContent='flex-end' mt='5'>
-                      <Heading as='h6' size='md'>SubTotal : Rs 1240</Heading>
-                    </HStack>
-                    <HStack mt='5' justifyContent='flex-end'>
-                      <Button colorScheme='blue' variant='outline'>Checkout</Button>
-                    </HStack>
-                  </VStack>
-
-
-
-                </DrawerBody>
-              </DrawerContent>
-            </Drawer>
-
-
-          </HStack>
-
+          <Cart
+          
+              cart={cart}
+              setCart={setCart}
+              onRemove={onRemove}
+              products={products}
+              item={cart.find((x) => x.id === product.id)} 
+              
+            />
+          
 
         </Flex>
       </chakra.header>
@@ -155,8 +127,8 @@ const Home = () => {
           } else if (data.name.toLowerCase().includes(SearchItem.toLowerCase())) {
             return data
           }
-        }).map((prod, i) => (
-          <SingleProduct key={i} data={prod} addToCart={addToCart} />
+        }).map((product, i) => (
+          <SingleProduct key={i} data={product} item={cart.find((x) => x.id === product.id)} handleClick={handleClick} />
         ))}
       </div>
     </>
