@@ -2,7 +2,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-
+import Checkout from "./components/Checkout";
 
 function App() {
 
@@ -10,20 +10,21 @@ function App() {
   return (
     <div className='App'>
       
-       <Home /> 
-   {/* <BrowserRouter>
-          <Header />
-       <div>
-           <Route path='/' exact>
-              <Home/>
-            </Route>
-            <Route path='/cart' exact>
-               <Cart/>
-            </Route>
+       
+   
+      <Router>
+         <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/checkout" element={<Checkout />} />
+
+         </Routes>
+      </Router>
+     
+          
          </div>
       
-     </BrowserRouter>  */}
-     </div>
+    
+     
   );
   }
 
